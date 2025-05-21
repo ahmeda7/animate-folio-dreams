@@ -1,5 +1,5 @@
 
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, forwardRef, ElementType } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
@@ -21,7 +21,7 @@ export default function TextReveal({
   as: Component = "h2",
   stagger = 0.05,
 }: TextRevealProps) {
-  const textRef = useRef<HTMLElement | null>(null);
+  const textRef = useRef<HTMLElement>(null);
   
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -57,7 +57,10 @@ export default function TextReveal({
   }, [text, stagger, delay]);
   
   return (
-    <Component ref={textRef} className={className}>
+    <Component
+      ref={textRef as any}
+      className={className}
+    >
       {text}
     </Component>
   );
